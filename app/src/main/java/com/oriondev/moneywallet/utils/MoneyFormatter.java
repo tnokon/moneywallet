@@ -87,6 +87,10 @@ public class MoneyFormatter {
 
     public static long normalize(long money, int decimalOffset) {
         double exponential = Math.pow(10d, decimalOffset);
+        /* consideration for rounding up in absolute value should be made here */
+        /* double roundDirection = money < 0 ? -1.0d : 1.0d; */
+        /* long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + roundDirection * 0.50d / Math.pow(10, currencyUnit.getDecimals()) ); */
+        /* return (long) ( money * exponential + roundDirection * 0.50d * exponential ) */
         return (long) (money * exponential);
     }
 
@@ -188,6 +192,10 @@ public class MoneyFormatter {
         } else if (mShowSymbolEnabled) {
             builder.append("+");
         }
+        /* consideration for rounding up in absolute value should be made here */
+        /* double roundDirection = money < 0 ? -1.0d : 1.0d; */
+        /* long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + roundDirection * 0.50d / Math.pow(10, currencyUnit.getDecimals()) ); */
+        /* builder.append(mFormatter.format((double) Math.abs(money) / divider + 0.50d / divider)); */
         builder.append(mFormatter.format((double) Math.abs(money) / divider));
         return builder.toString();
     }

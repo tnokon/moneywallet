@@ -63,8 +63,13 @@ public class CSVDataImporter extends AbstractDataImporter {
             } catch (NumberFormatException e) {
                 throw new RuntimeException("Invalid money amount (" + e.getMessage() + ")");
             }
-            long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + 5.0 / Math.pow(10, 1 + currencyUnit.getDecimals()));
+            /* long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) ); */
+            /* rounding up in absolute value */
+            /* round up on import from double to long */
+            double roundDirection = money < 0 ? -1.0d : 1.0d;
+            long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + roundDirection * 0.50d / Math.pow(10, currencyUnit.getDecimals()) );
             int direction = money < 0 ? Contract.Direction.EXPENSE : Contract.Direction.INCOME;
+
             Date datetime = DateUtils.getDateFromSQLDateTimeString(datetimeString);
             insertTransaction(wallet, currencyUnit, category, datetime, Math.abs(money), direction, description, event, place, people, note);
             lineMap = mReader.readMap();

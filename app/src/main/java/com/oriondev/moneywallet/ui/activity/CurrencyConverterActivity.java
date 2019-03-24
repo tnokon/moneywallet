@@ -244,6 +244,10 @@ public class CurrencyConverterActivity extends SinglePanelActivity implements Vi
             BigDecimal bigMoney = new BigDecimal(text);
             bigMoney = bigMoney.multiply(new BigDecimal(exchangeRate.getRate()));
             CurrencyUnit currencyUnit = mCurrencyToPicker.getCurrentCurrency();
+            /* consideration for rounding up in absolute value should be made here */
+            /* double roundDirection = money < 0 ? -1.0d : 1.0d; */
+            /* long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + roundDirection * 0.50d / Math.pow(10, currencyUnit.getDecimals()) ); */
+            /* long money = (long) (bigMoney.doubleValue() * Math.pow(10, currencyUnit.getDecimals()) + 0.50d * Math.pow(10, currencyUnit.getDecimals()) ); */
             long money = (long) (bigMoney.doubleValue() * Math.pow(10, currencyUnit.getDecimals()));
             mTextMoneyTo.setText(mMoneyFormatter.getNotTintedString(currencyUnit, money, MoneyFormatter.CurrencyMode.ALWAYS_HIDDEN));
         } else {
