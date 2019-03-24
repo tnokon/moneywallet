@@ -66,7 +66,7 @@ public class CSVDataImporter extends AbstractDataImporter {
             /* long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) ); */
             /* rounding up in absolute value */
             /* round up on import from double to long */
-            double roundDirection = money < 0 ? -1.0d : 1.0d;
+            double roundDirection = moneyDouble < 0d ? -1.0d : 1.0d;
             long money = (long) (moneyDouble * Math.pow(10, currencyUnit.getDecimals()) + roundDirection * 0.50d / Math.pow(10, currencyUnit.getDecimals()) );
             int direction = money < 0 ? Contract.Direction.EXPENSE : Contract.Direction.INCOME;
 
